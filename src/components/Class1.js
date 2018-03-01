@@ -1,14 +1,9 @@
 import React, {Component} from 'react';
 
-class Leaderboard extends Component {
+class Class1 extends Component {
 
   constructor() {
     super();
-    this.state = {
-      topAll: [],
-      topRecent: [],
-      category: 'all' //set default
-    }
 
   }
   hello = () => {
@@ -23,4 +18,4 @@ class Leaderboard extends Component {
     );
   }
 }
-export default Leaderboard;
+export default Class1;

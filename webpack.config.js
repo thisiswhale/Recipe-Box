@@ -1,35 +1,42 @@
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
+
 module.exports = {
-  mode: "development",
-  entry: "./app/App.js",
+  entry: './src/app.js',
   output: {
-    filename: "public/bundle.js"
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, './public')
   },
   module: {
-      rules: [
-        {
-          test: /\.jsx$/,
-          exclude: /node_modules/,
-          use: {
-            loader: "babel-loader"
-          }
-        },
-        {
-          test: /\.css$/,
-          use: [
-            {
-              loader: 'style-loader'
-            },
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                camelCase: true,
-                sourceMap: true
-              }
-            }
-          ]
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
         }
-      ]
-    },
-  devtool: "eval-source-map"
+      }, {
+        test: /\.(s*)css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'sass-loader']
+        })
+      }, {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "html-loader",
+            options: {
+              minimize: true
+            }
+          }
+        ]
+      }
+    ]
+  },
+  plugins: [
+    new HtmlWebPackPlugin({template: "./src/index.html"}),
+    new ExtractTextPlugin({filename: 'app.bundle.css'})
+  ]
 };
