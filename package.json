@@ -28,13 +28,16 @@
     "css-loader": "^0.28.10",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-loader": "^0.5.5",
-    "html-webpack-plugin": "^3.0.1",
+    "html-webpack-plugin": "^3.0.4",
     "node-sass": "^4.7.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.20.2",
     "webpack": "^4.0.1",
-    "webpack-cli": "^2.0.9"
+    "webpack-cli": "^2.0.10"
+  },
+  "dependencies": {
+    "react-bootstrap": "^0.32.1"
   }
 }

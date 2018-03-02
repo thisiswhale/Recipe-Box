@@ -1,7 +1,7 @@
 import React from "react";
 
 const Title = () => (
-  <h2 className='title'>Testing</h2>
+  <h2 className='title'>Recipe Box</h2>
 );
 
 const Container = props => (
