@@ -1,60 +1,169 @@
 import React, {Component} from 'react'
-import {PanelGroup, Panel} from 'react-bootstrap'
+import {
+  Modal,
+  PanelGroup,
+  Panel,
+  Button,
+  ListGroup,
+  ListGroupItem,FormGroup,
+ControlLabel,
+FormControl
+} from 'react-bootstrap'
 
 export default class RecipeCard extends Component {
 
-  render() {
+  constructor() {
+    super()
+    this.state = {
+      recipes: [
+        {
+          name: 'Chicken Alfredo',
+          ingredients: ['noodles', 'alfredo sauce', 'chicken']
+        }, {
+          name: 'Cheese Omlette',
+          ingredients: ['Eggs', 'Cheddar Cheese']
+        }
+      ],
+      showAddModal: false,
+      showEditModal: false,
+      addRecipeValue: '',
+      addIngredientValue: '',
+      editRecipeValue: '',
+      editIngredientValue: ''
+    }
+  }
+
+  handleAddRecipeModalHide = () => {
+    this.setState({showAddModal: false});
+  }
+  handleEditRecipeModalHide = () => {
+    this.setState({showEditModal: false});
+  }
+
+  handleChangeRecipeValue = (e) => {
+    this.setState({ addRecipeValue: e.target.value });
+  }
+
+  handleChangeIngredientValue = (e) => {
+    this.setState({ addIngredientValue: e.target.value });
+  }
+
+  handleChangeEditRecipeValue = (e) => {
+    this.setState({ editRecipeValue: e.target.value });
+  }
+
+  handleChangeEditIngredientValue = (e) => {
+    this.setState({ editIngredientValue: e.target.value });
+  }
+  renderRecipeCard = () => {
+    return (this.state.recipes.map((recipe, i) => {
+      return (<Panel eventKey={i + 1}>
+        <Panel.Heading>
+          <Panel.Title toggle="toggle">{recipe.name}</Panel.Title>
+        </Panel.Heading>
+        <Panel.Body collapsible="collapsible">
+          <ListGroup>
+            {
+              recipe.ingredients.map(ingredient => {
+                return (<ListGroupItem>{ingredient}</ListGroupItem>);
+              })
+            }
+          </ListGroup>
+          <Button onClick={this.handleEditRecipeModalHide}>Edit</Button>
+          <Button bsStyle="danger">Delete</Button>
+        </Panel.Body>
+      </Panel>);
+    }))
+  }
+
+  renderAddRecipeModal = () => {
+    return(
+      <Modal show={this.state.showAddModal} onHide={this.handleAddRecipeModalHide} container={this} aria-labelledby="contained-modal-title">
+        <Modal.Header closeButton="closeButton">
+          <Modal.Title id="contained-modal-title">
+            Add A Recipe
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form>
+            <FormGroup
+              controlId="formBasicText"
+            >
+              <ControlLabel>Recipe</ControlLabel>
+              <FormControl
+                type="text"
+                value={this.state.addRecipeValue}
+                placeholder="e.g. Lasagna"
+                onChange={this.handleChangeRecipeValue}
+              />
+              <ControlLabel>Ingredients</ControlLabel>
+              <FormControl
+                type="text"
+                row="2"
+                value={this.state.addIngredientValue}
+                placeholder="e.g. eggs, flour, tomato sauce, water"
+                onChange={this.handleChangeIngredientValue}
+              />
+            </FormGroup>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.handleAddRecipeModalHide}>Add Recipe</Button>
+          <Button onClick={this.handleAddRecipeModalHide}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
+  renderEditRecipeModal = () => {
+    console.log('he')
     return (
-      <PanelGroup accordion id="accordion-example">
-        <Panel eventKey="1">
-          <Panel.Heading>
-            <Panel.Title toggle>Collapsible Group Item #1</Panel.Title>
-          </Panel.Heading>
-          <Panel.Body collapsible>
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
-            dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-            moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-            assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-            wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
-            butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim
-            aesthetic synth nesciunt you probably haven't heard of them accusamus
-            labore sustainable VHS.
-          </Panel.Body>
-        </Panel>
-        <Panel eventKey="2">
-          <Panel.Heading>
-            <Panel.Title toggle>Collapsible Group Item #2</Panel.Title>
-          </Panel.Heading>
-          <Panel.Body collapsible>
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
-            dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-            moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-            assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-            wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
-            butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim
-            aesthetic synth nesciunt you probably haven't heard of them accusamus
-            labore sustainable VHS.
-          </Panel.Body>
-        </Panel>
-        <Panel eventKey="3">
-          <Panel.Heading>
-            <Panel.Title toggle>Collapsible Group Item #3</Panel.Title>
-          </Panel.Heading>
-          <Panel.Body collapsible>
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
-            dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-            moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-            assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-            wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
-            butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim
-            aesthetic synth nesciunt you probably haven't heard of them accusamus
-            labore sustainable VHS.
-          </Panel.Body>
-        </Panel>
+      <Modal show={this.state.showEditModal} onHide={this.handleEditRecipeModalHide} container={this} aria-labelledby="contained-modal-title">
+        <Modal.Header closeButton="closeButton">
+          <Modal.Title id="contained-modal-title">
+            Edit Recipe
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form>
+            <FormGroup
+              controlId="formBasicText"
+            >
+              <ControlLabel>Recipe</ControlLabel>
+              <FormControl
+                type="text"
+                value={this.state.editRecipeValue}
+                placeholder="e.g. Lasagna"
+                onChange={this.handleChangeEditRecipeValue}
+              />
+              <ControlLabel>Ingredients</ControlLabel>
+              <FormControl
+                type="text"
+                row="2"
+                value={this.state.editIngredientValue}
+                placeholder="e.g. eggs, flour, tomato sauce, water"
+                onChange={this.handleChangeEditIngredientValue}
+              />
+            </FormGroup>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button>Add Recipe</Button>
+          <Button onClick={this.handleAddRecipeModalHide}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+    )
+  }
+  render() {
+    return (<div>
+      <PanelGroup accordion="accordion" id="accordion-example">
+        {this.renderRecipeCard()}
       </PanelGroup>
-        )
+      <Button bsStyle="primary" onClick={() => this.setState({showAddModal: true})}>
+        Add Recipe
+      </Button>
+      {this.renderAddRecipeModal()}
+      {this.renderEditRecipeModal()}
+    </div>);
   }
 }
