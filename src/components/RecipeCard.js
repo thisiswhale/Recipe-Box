@@ -32,7 +32,37 @@ export default class RecipeCard extends Component {
       editIngredientValue: ''
     }
   }
+  deleteRecipe = (i) => {
+    console.log('removing recipe: '+ i)
+    let object = this.state.recipes;
+    object.splice(i,1)
+    this.setState({recipes: object});
+  }
 
+  updateRecipe = (newText, i) =>{
+    let object = this.state.recipes;
+    object[i].name = newText.name;
+    object[i].ingredients = newText.ingredients;
+    this.setState({recipes:object, });
+  }
+
+  addRecipe = (addRecipe) => {
+    let object = this.state.recipes;
+    object.push(addRecipe)
+    this.setState({recipes: object, addRecipeValue:'', addIngredientValue:''})
+    //FIGURE OUT TO SAVE INTO COOKIE
+  }
+
+  handleAddRecipe = (e) => {
+    console.log(e.target)
+
+    const regExp = /\s*,\s*/;
+    let newRecipeName = this.state.addRecipeValue;
+    let newIngredients = this.state.addIngredientValue.split(regExp);
+    let newRecipe = {name: newRecipeName, ingredients: newIngredients};
+    this.addRecipe(newRecipe);
+    this.handleAddRecipeModalHide();
+  }
   handleAddRecipeModalHide = () => {
     this.setState({showAddModal: false});
   }
@@ -57,7 +87,7 @@ export default class RecipeCard extends Component {
   }
   renderRecipeCard = () => {
     return (this.state.recipes.map((recipe, i) => {
-      return (<Panel eventKey={i + 1}>
+      return (<Panel eventKey={i+0} updateRecipeText={this.updateRecipe} deleteRecipeCard={this.deleteRecipe}>
         <Panel.Heading>
           <Panel.Title toggle="toggle">{recipe.name}</Panel.Title>
         </Panel.Heading>
@@ -69,7 +99,7 @@ export default class RecipeCard extends Component {
               })
             }
           </ListGroup>
-          <Button onClick={this.handleEditRecipeModalHide}>Edit</Button>
+          <Button bsStyle="primary" onClick={() => this.setState({showEditModal: true})}>Edit</Button>
           <Button bsStyle="danger">Delete</Button>
         </Panel.Body>
       </Panel>);
@@ -108,15 +138,15 @@ export default class RecipeCard extends Component {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.handleAddRecipeModalHide}>Add Recipe</Button>
+          <Button bsStyle="primary" onClick={this.handleAddRecipe} >Add Recipe</Button>
           <Button onClick={this.handleAddRecipeModalHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     );
   }
 
+
   renderEditRecipeModal = () => {
-    console.log('he')
     return (
       <Modal show={this.state.showEditModal} onHide={this.handleEditRecipeModalHide} container={this} aria-labelledby="contained-modal-title">
         <Modal.Header closeButton="closeButton">
@@ -148,7 +178,7 @@ export default class RecipeCard extends Component {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button>Add Recipe</Button>
+          <Button >Save Recipe</Button>
           <Button onClick={this.handleAddRecipeModalHide}>Close</Button>
         </Modal.Footer>
       </Modal>
@@ -156,7 +186,7 @@ export default class RecipeCard extends Component {
   }
   render() {
     return (<div>
-      <PanelGroup accordion="accordion" id="accordion-example">
+      <PanelGroup accordion="accordion" id="accordion">
         {this.renderRecipeCard()}
       </PanelGroup>
       <Button bsStyle="primary" onClick={() => this.setState({showAddModal: true})}>
