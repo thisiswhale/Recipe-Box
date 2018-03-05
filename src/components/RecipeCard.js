@@ -33,8 +33,9 @@ export default class RecipeCard extends Component {
       currentEditIndex: 0
     }
   }
-  componentWillUpdate() {
-    let retrievedObject = localStorage.getItem('My_Recipes');
+  componentDidMount() {
+    let retrievedObject = JSON.parse(localStorage.getItem('My_Recipes'));
+    console.log(retrievedObject);
     (retrievedObject) ? this.setState({recipes: retrievedObject}) : this.setState({recipes: this.state.recipes})
   }
 
@@ -108,14 +109,11 @@ export default class RecipeCard extends Component {
   handleChangeEditIngredientValue = (e) => {
     this.setState({ editIngredientValue: e.target.value });
   }
-  //fdsfsdfsdfdsfdsfsdf
-    //fdsfsdfsdfdsfdsfsdf
-      //fdsfsdfsdfdsfdsfsdf
-        //fdsfsdfsdfdsfdsfsdf
 
   renderRecipeCard = () => {
+    console.log(this.state.recipes)
     return (this.state.recipes.map((recipe, i) => {
-      return (<Panel eventKey={i+0} updateRecipeText={this.updateRecipe} deleteRecipeCard={this.deleteRecipe}>
+      return (<Panel eventKey={i+0}>
         <Panel.Heading>
           <Panel.Title toggle="toggle">{recipe.name}</Panel.Title>
         </Panel.Heading>
@@ -133,11 +131,6 @@ export default class RecipeCard extends Component {
       </Panel>);
     }))
   }
-  //fdsfsdfsdfdsfdsfsdf
-    //fdsfsdfsdfdsfdsfsdf
-      //fdsfsdfsdfdsfdsfsdf
-        //fdsfsdfsdfdsfdsfsdf
-          //fdsfsdfsdfdsfdsfsdf
 
   renderAddRecipeModal = () => {
     return(
