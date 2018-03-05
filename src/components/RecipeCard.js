@@ -29,21 +29,24 @@ export default class RecipeCard extends Component {
       addRecipeValue: '',
       addIngredientValue: '',
       editRecipeValue: '',
-      editIngredientValue: ''
+      editIngredientValue: '',
+      currentEditIndex: 0
     }
   }
-  deleteRecipe = (i) => {
-    console.log('removing recipe: '+ i)
+  deleteRecipe = (thisIndex) => {
     let object = this.state.recipes;
-    object.splice(i,1)
+    object.splice(thisIndex,1)
     this.setState({recipes: object});
+    this.handleEditRecipeModalHide();
   }
 
-  updateRecipe = (newText, i) =>{
+  updateRecipe = (thisIndex) =>{
     let object = this.state.recipes;
-    object[i].name = newText.name;
-    object[i].ingredients = newText.ingredients;
-    this.setState({recipes:object, });
+    object[thisIndex].name = this.state.editRecipeValue;
+    const regExp = /\s*,\s*/;
+    object[thisIndex].ingredients = this.state.editIngredientValue.split(regExp);
+    this.setState({recipes:object,  editRecipeValue:'', editIngredientValue:''});
+    this.handleEditRecipeModalHide();
   }
 
   addRecipe = (addRecipe) => {
@@ -54,8 +57,8 @@ export default class RecipeCard extends Component {
   }
 
   handleAddRecipe = (e) => {
-    console.log(e.target)
-
+    e.preventDefault();
+    this.setState({showAddModal: true});
     const regExp = /\s*,\s*/;
     let newRecipeName = this.state.addRecipeValue;
     let newIngredients = this.state.addIngredientValue.split(regExp);
@@ -63,6 +66,14 @@ export default class RecipeCard extends Component {
     this.addRecipe(newRecipe);
     this.handleAddRecipeModalHide();
   }
+
+  handleEditRecipe = (thisRecipeIndex) => {
+    this.setState({showEditModal: true, currentEditIndex: thisRecipeIndex});
+     let editRecipeName = this.state.recipes[thisRecipeIndex].name;
+     let editIngredients = this.state.recipes[thisRecipeIndex].ingredients.join(", ");
+     this.setState({editRecipeValue: editRecipeName, editIngredientValue: editIngredients})
+  }
+
   handleAddRecipeModalHide = () => {
     this.setState({showAddModal: false});
   }
@@ -85,6 +96,11 @@ export default class RecipeCard extends Component {
   handleChangeEditIngredientValue = (e) => {
     this.setState({ editIngredientValue: e.target.value });
   }
+  //fdsfsdfsdfdsfdsfsdf
+    //fdsfsdfsdfdsfdsfsdf
+      //fdsfsdfsdfdsfdsfsdf
+        //fdsfsdfsdfdsfdsfsdf
+
   renderRecipeCard = () => {
     return (this.state.recipes.map((recipe, i) => {
       return (<Panel eventKey={i+0} updateRecipeText={this.updateRecipe} deleteRecipeCard={this.deleteRecipe}>
@@ -99,12 +115,17 @@ export default class RecipeCard extends Component {
               })
             }
           </ListGroup>
-          <Button bsStyle="primary" onClick={() => this.setState({showEditModal: true})}>Edit</Button>
-          <Button bsStyle="danger">Delete</Button>
+          <Button bsStyle="primary" onClick={() => this.handleEditRecipe(i)}>Edit</Button>
+          <Button bsStyle="danger" onClick={() => this.deleteRecipe(i)}>Delete</Button>
         </Panel.Body>
       </Panel>);
     }))
   }
+  //fdsfsdfsdfdsfdsfsdf
+    //fdsfsdfsdfdsfdsfsdf
+      //fdsfsdfsdfdsfdsfsdf
+        //fdsfsdfsdfdsfdsfsdf
+          //fdsfsdfsdfdsfdsfsdf
 
   renderAddRecipeModal = () => {
     return(
@@ -129,7 +150,6 @@ export default class RecipeCard extends Component {
               <ControlLabel>Ingredients</ControlLabel>
               <FormControl
                 type="text"
-                row="2"
                 value={this.state.addIngredientValue}
                 placeholder="e.g. eggs, flour, tomato sauce, water"
                 onChange={this.handleChangeIngredientValue}
@@ -146,7 +166,7 @@ export default class RecipeCard extends Component {
   }
 
 
-  renderEditRecipeModal = () => {
+  renderEditRecipeModal = (e) => {
     return (
       <Modal show={this.state.showEditModal} onHide={this.handleEditRecipeModalHide} container={this} aria-labelledby="contained-modal-title">
         <Modal.Header closeButton="closeButton">
@@ -163,23 +183,20 @@ export default class RecipeCard extends Component {
               <FormControl
                 type="text"
                 value={this.state.editRecipeValue}
-                placeholder="e.g. Lasagna"
                 onChange={this.handleChangeEditRecipeValue}
               />
               <ControlLabel>Ingredients</ControlLabel>
               <FormControl
                 type="text"
-                row="2"
                 value={this.state.editIngredientValue}
-                placeholder="e.g. eggs, flour, tomato sauce, water"
                 onChange={this.handleChangeEditIngredientValue}
               />
             </FormGroup>
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button >Save Recipe</Button>
-          <Button onClick={this.handleAddRecipeModalHide}>Close</Button>
+          <Button onClick={() => this.updateRecipe(this.state.currentEditIndex)}>Save Recipe</Button>
+          <Button onClick={this.handleEditRecipeModalHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     )
