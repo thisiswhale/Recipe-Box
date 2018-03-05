@@ -33,11 +33,21 @@ export default class RecipeCard extends Component {
       currentEditIndex: 0
     }
   }
+  componentWillUpdate() {
+    let retrievedObject = localStorage.getItem('My_Recipes');
+    (retrievedObject) ? this.setState({recipes: retrievedObject}) : this.setState({recipes: this.state.recipes})
+  }
+
   deleteRecipe = (thisIndex) => {
     let object = this.state.recipes;
     object.splice(thisIndex,1)
     this.setState({recipes: object});
     this.handleEditRecipeModalHide();
+    this.saveRecipesLocalStorage();
+  }
+
+  saveRecipesLocalStorage = () => {
+    localStorage.setItem('My_Recipes', JSON.stringify(this.state.recipes));
   }
 
   updateRecipe = (thisIndex) =>{
@@ -47,14 +57,16 @@ export default class RecipeCard extends Component {
     object[thisIndex].ingredients = this.state.editIngredientValue.split(regExp);
     this.setState({recipes:object,  editRecipeValue:'', editIngredientValue:''});
     this.handleEditRecipeModalHide();
+    this.saveRecipesLocalStorage();
   }
 
   addRecipe = (addRecipe) => {
     let object = this.state.recipes;
     object.push(addRecipe)
     this.setState({recipes: object, addRecipeValue:'', addIngredientValue:''})
-    //FIGURE OUT TO SAVE INTO COOKIE
+    this.saveRecipesLocalStorage();
   }
+
 
   handleAddRecipe = (e) => {
     e.preventDefault();
