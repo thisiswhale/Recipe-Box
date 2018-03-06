@@ -4,8 +4,8 @@ import {
   Button,
   ListGroup,
   ListGroupItem,FormGroup,
-ControlLabel,
-FormControl
+  ControlLabel,
+  FormControl
 } from 'react-bootstrap'
 
 export default class EditRecipeModal extends Component {
@@ -13,6 +13,7 @@ export default class EditRecipeModal extends Component {
   constructor(){
     super()
   }
+
   render(){
     return (
       <Modal show={this.props.showModal} onHide={this.props.closeModal} container={this} aria-labelledby="contained-modal-title">
