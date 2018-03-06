@@ -1,7 +1,44 @@
 html,body {
   background-color: #B21B00;
+  font-family: 'Karma', serif;
+  font-size: 18px;
 }
 
 .container{
-  width: 60%
+  width: 600px;
+
+  .title{
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 60px;
+  }
+
+  .recipe-title{
+  font-size: 25px;
+  font-weight: bold;
+  }
+  .ingredients{
+    font-size: 20px;
+  }
+
+  button{
+    font-size: 18px;
+  }
+
+  .modal{
+    .modal-title{
+      font-size: 24px;
+      font-weight: bold;
+    }
+    input{
+      color: #000;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+  }
+  .btn-delete{
+    margin-left: 5px;
+  }
 }

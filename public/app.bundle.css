@@ -1,5 +1,28 @@
 html, body {
-  background-color: #B21B00; }
+  background-color: #B21B00;
+  font-family: 'Karma', serif;
+  font-size: 18px; }
 
 .container {
-  width: 60%; }
+  width: 600px; }
+  .container .title {
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 60px; }
+  .container .recipe-title {
+    font-size: 25px;
+    font-weight: bold; }
+  .container .ingredients {
+    font-size: 20px; }
+  .container button {
+    font-size: 18px; }
+  .container .modal .modal-title {
+    font-size: 24px;
+    font-weight: bold; }
+  .container .modal input {
+    color: #000;
+    font-size: 16px;
+    margin-bottom: 5px; }
+  .container .btn-delete {
+    margin-left: 5px; }

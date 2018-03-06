@@ -111,22 +111,21 @@ export default class RecipeCard extends Component {
   }
 
   renderRecipeCard = () => {
-    console.log(this.state.recipes)
     return (this.state.recipes.map((recipe, i) => {
       return (<Panel eventKey={i+0}>
         <Panel.Heading>
-          <Panel.Title toggle="toggle">{recipe.name}</Panel.Title>
+          <Panel.Title toggle="toggle" className='recipe-title'>{recipe.name}</Panel.Title>
         </Panel.Heading>
         <Panel.Body collapsible="collapsible">
           <ListGroup>
             {
               recipe.ingredients.map(ingredient => {
-                return (<ListGroupItem>{ingredient}</ListGroupItem>);
+                return (<ListGroupItem className='ingredients'>{ingredient}</ListGroupItem>);
               })
             }
           </ListGroup>
           <Button bsStyle="primary" onClick={() => this.handleEditRecipe(i)}>Edit</Button>
-          <Button bsStyle="danger" onClick={() => this.deleteRecipe(i)}>Delete</Button>
+          <Button bsStyle="danger" className='btn-delete' onClick={() => this.deleteRecipe(i)}>Delete</Button>
         </Panel.Body>
       </Panel>);
     }))
@@ -200,7 +199,7 @@ export default class RecipeCard extends Component {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={() => this.updateRecipe(this.state.currentEditIndex)}>Save Recipe</Button>
+          <Button bsStyle='warning' onClick={() => this.updateRecipe(this.state.currentEditIndex)}>Save Recipe</Button>
           <Button onClick={this.handleEditRecipeModalHide}>Close</Button>
         </Modal.Footer>
       </Modal>
