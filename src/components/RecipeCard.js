@@ -9,8 +9,8 @@ import {
   ControlLabel,
   FormControl
 } from 'react-bootstrap'
-import EditRecipeModal from './EditRecipeModal'
-import AddRecipeModal from './AddRecipeModal'
+import EditRecipeModal from './children/EditRecipeModal'
+import AddRecipeModal from './children/AddRecipeModal'
 
 export default class RecipeCard extends Component {
 

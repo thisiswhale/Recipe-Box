@@ -37,34 +37,33 @@ html {
     font-size: 18px;
     box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2);
   }
-
-  .modal {
-    .modal-title {
-      font-size: 24px;
-      font-weight: bold;
-    }
-    button.btn-edit{
-      background-color: #fff;
-      color: #f0ad4e;
-    }
-    button.btn-edit:hover{
-      background-color: #e6e6e6;
-    }
-    button.btn-add{
-      background-color: #fff;
-      color: #337ab7;
-    }
-    button.btn-add:hover{
-      background-color: #e6e6e6;
-    }
-    input {
-      color: #000;
-      font-size: 16px;
-      margin-bottom: 5px;
-    }
-  }
-
   .btn-delete {
     margin-left: 5px;
+  }
+}
+
+.modal-content {
+  .modal-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  button.btn-edit{
+    background-color: #fff;
+    color: #f0ad4e;
+  }
+  button.btn-edit:hover{
+    background-color: #e6e6e6;
+  }
+  button.btn-add{
+    background-color: #fff;
+    color: #337ab7;
+  }
+  button.btn-add:hover{
+    background-color: #e6e6e6;
+  }
+  input {
+    color: #000;
+    font-size: 16px;
+    margin-bottom: 5px;
   }
 }

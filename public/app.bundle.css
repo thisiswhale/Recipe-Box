@@ -25,22 +25,28 @@ html {
   .container button {
     font-size: 18px;
     box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2); }
-  .container .modal .modal-title {
-    font-size: 24px;
-    font-weight: bold; }
-  .container .modal button.btn-edit {
-    background-color: #fff;
-    color: #f0ad4e; }
-  .container .modal button.btn-edit:hover {
-    background-color: #e6e6e6; }
-  .container .modal button.btn-add {
-    background-color: #fff;
-    color: #337ab7; }
-  .container .modal button.btn-add:hover {
-    background-color: #e6e6e6; }
-  .container .modal input {
-    color: #000;
-    font-size: 16px;
-    margin-bottom: 5px; }
   .container .btn-delete {
     margin-left: 5px; }
+
+.modal-content .modal-title {
+  font-size: 24px;
+  font-weight: bold; }
+
+.modal-content button.btn-edit {
+  background-color: #fff;
+  color: #f0ad4e; }
+
+.modal-content button.btn-edit:hover {
+  background-color: #e6e6e6; }
+
+.modal-content button.btn-add {
+  background-color: #fff;
+  color: #337ab7; }
+
+.modal-content button.btn-add:hover {
+  background-color: #e6e6e6; }
+
+.modal-content input {
+  color: #000;
+  font-size: 16px;
+  margin-bottom: 5px; }
