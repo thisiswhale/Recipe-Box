@@ -18,10 +18,14 @@ export default class RecipeCard extends Component {
       recipes: [
         {
           name: 'Chicken Alfredo',
-          ingredients: ['noodles', 'alfredo sauce', 'chicken']
+          ingredients: ['2 boneless chicken breast', '1 cup heavy cream', '2/3 cup grated parmesan cheese','1/2 pound spaghetti', '1/4 cup butter', '1 tablespoon olive oil', 'salt and ground black pepper']
         }, {
           name: 'Cheese Omlette',
-          ingredients: ['Eggs', 'Cheddar Cheese']
+          ingredients: ['3 large eggs', '1 tablespoon whipping cream or milk', '1/8 teaspoon salt','1 tablespoon butter','1/3 cup shredded cheddar or Swiss cheese']
+        },
+        {
+          name: 'Molten Chocolate Lava Cake',
+          ingredients: ['1 stick butter ', '2 ounces bittersweet chocolate ', '2 ounces semisweet chocolate','1 1/4 cups powdered sugar ','2 whole eggs','3 egg yolks','1 teaspoon vanilla ','1/2 cup all-purpose flour','Vanilla ice cream']
         }
       ],
       showAddModal: false,
@@ -117,6 +121,7 @@ export default class RecipeCard extends Component {
           <Panel.Title toggle="toggle" className='recipe-title'>{recipe.name}</Panel.Title>
         </Panel.Heading>
         <Panel.Body collapsible="collapsible">
+          <h4 className='panel-header-ingredients'>Ingredients:</h4>
           <ListGroup>
             {
               recipe.ingredients.map(ingredient => {
@@ -162,7 +167,7 @@ export default class RecipeCard extends Component {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button bsStyle="primary" onClick={this.handleAddRecipe} >Add Recipe</Button>
+          <Button bsStyle="primary" className='btn-add' onClick={this.handleAddRecipe} >Add Recipe</Button>
           <Button onClick={this.handleAddRecipeModalHide}>Close</Button>
         </Modal.Footer>
       </Modal>
@@ -199,7 +204,7 @@ export default class RecipeCard extends Component {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button bsStyle='warning' onClick={() => this.updateRecipe(this.state.currentEditIndex)}>Save Recipe</Button>
+          <Button bsStyle='warning' className='btn-edit' onClick={() => this.updateRecipe(this.state.currentEditIndex)}>Save Recipe</Button>
           <Button onClick={this.handleEditRecipeModalHide}>Close</Button>
         </Modal.Footer>
       </Modal>

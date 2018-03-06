@@ -1,4 +1,5 @@
-html, body {
+body,
+html {
   background-color: #B21B00;
   font-family: 'Karma', serif;
   font-size: 18px; }
@@ -10,16 +11,33 @@ html, body {
     text-align: center;
     font-weight: bold;
     font-size: 60px; }
+  .container .panel-heading {
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2); }
   .container .recipe-title {
-    font-size: 25px;
+    font-size: 22px;
     font-weight: bold; }
+  .container .panel-header-ingredients {
+    font-style: italic;
+    text-decoration: underline; }
   .container .ingredients {
-    font-size: 20px; }
+    font-size: 16px;
+    border: 0px; }
   .container button {
-    font-size: 18px; }
+    font-size: 18px;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2); }
   .container .modal .modal-title {
     font-size: 24px;
     font-weight: bold; }
+  .container .modal button.btn-edit {
+    background-color: #fff;
+    color: #f0ad4e; }
+  .container .modal button.btn-edit:hover {
+    background-color: #e6e6e6; }
+  .container .modal button.btn-add {
+    background-color: #fff;
+    color: #337ab7; }
+  .container .modal button.btn-add:hover {
+    background-color: #e6e6e6; }
   .container .modal input {
     color: #000;
     font-size: 16px;

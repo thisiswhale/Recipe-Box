@@ -1,44 +1,70 @@
-html,body {
+body,
+html {
   background-color: #B21B00;
   font-family: 'Karma', serif;
   font-size: 18px;
 }
 
-.container{
+.container {
   width: 600px;
 
-  .title{
+  .title {
     color: #fff;
     text-align: center;
     font-weight: bold;
     font-size: 60px;
   }
-
-  .recipe-title{
-  font-size: 25px;
-  font-weight: bold;
+  .panel-heading{
+        box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2);
   }
-  .ingredients{
-    font-size: 20px;
-  }
+    .recipe-title {
+      font-size: 22px;
+      font-weight: bold;
+    }
 
-  button{
+    .panel-header-ingredients {
+      font-style: italic;
+      text-decoration: underline;
+    }
+
+    .ingredients {
+      font-size: 16px;
+      border: 0px;
+    }
+
+
+  button {
     font-size: 18px;
+    box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2);
   }
 
-  .modal{
-    .modal-title{
+  .modal {
+    .modal-title {
       font-size: 24px;
       font-weight: bold;
     }
-    input{
+    button.btn-edit{
+      background-color: #fff;
+      color: #f0ad4e;
+    }
+    button.btn-edit:hover{
+      background-color: #e6e6e6;
+    }
+    button.btn-add{
+      background-color: #fff;
+      color: #337ab7;
+    }
+    button.btn-add:hover{
+      background-color: #e6e6e6;
+    }
+    input {
       color: #000;
       font-size: 16px;
       margin-bottom: 5px;
     }
-
   }
-  .btn-delete{
+
+  .btn-delete {
     margin-left: 5px;
   }
 }
