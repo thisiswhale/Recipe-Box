@@ -6,9 +6,11 @@ import {
   Button,
   ListGroup,
   ListGroupItem,FormGroup,
-ControlLabel,
-FormControl
+  ControlLabel,
+  FormControl
 } from 'react-bootstrap'
+import EditRecipeModal from './EditRecipeModal'
+import AddRecipeModal from './AddRecipeModal'
 
 export default class RecipeCard extends Component {
 
@@ -39,9 +41,15 @@ export default class RecipeCard extends Component {
   }
   componentDidMount() {
     let retrievedObject = JSON.parse(localStorage.getItem('My_Recipes'));
-    console.log(retrievedObject);
     (retrievedObject) ? this.setState({recipes: retrievedObject}) : this.setState({recipes: this.state.recipes})
   }
+
+  addRecipe = (addRecipe) => {
+  let object = this.state.recipes;
+  object.push(addRecipe)
+  this.setState({recipes: object, addRecipeValue:'', addIngredientValue:''})
+  this.saveRecipesLocalStorage();
+}
 
   deleteRecipe = (thisIndex) => {
     let object = this.state.recipes;
@@ -65,21 +73,16 @@ export default class RecipeCard extends Component {
     this.saveRecipesLocalStorage();
   }
 
-  addRecipe = (addRecipe) => {
-    let object = this.state.recipes;
-    object.push(addRecipe)
-    this.setState({recipes: object, addRecipeValue:'', addIngredientValue:''})
-    this.saveRecipesLocalStorage();
-  }
-
-
   handleAddRecipe = (e) => {
     e.preventDefault();
     this.setState({showAddModal: true});
     const regExp = /\s*,\s*/;
     let newRecipeName = this.state.addRecipeValue;
     let newIngredients = this.state.addIngredientValue.split(regExp);
-    let newRecipe = {name: newRecipeName, ingredients: newIngredients};
+    let newRecipe = {
+      name: newRecipeName,
+      ingredients: newIngredients
+    };
     this.addRecipe(newRecipe);
     this.handleAddRecipeModalHide();
   }
@@ -94,16 +97,16 @@ export default class RecipeCard extends Component {
   handleAddRecipeModalHide = () => {
     this.setState({showAddModal: false});
   }
-  handleEditRecipeModalHide = () => {
-    this.setState({showEditModal: false});
-  }
-
   handleChangeRecipeValue = (e) => {
-    this.setState({ addRecipeValue: e.target.value });
+    this.setState({addRecipeValue: e.target.value});
   }
 
   handleChangeIngredientValue = (e) => {
-    this.setState({ addIngredientValue: e.target.value });
+    this.setState({addIngredientValue: e.target.value});
+  }
+
+  handleEditRecipeModalHide = () => {
+    this.setState({showEditModal: false});
   }
 
   handleChangeEditRecipeValue = (e) => {
@@ -136,80 +139,6 @@ export default class RecipeCard extends Component {
     }))
   }
 
-  renderAddRecipeModal = () => {
-    return(
-      <Modal show={this.state.showAddModal} onHide={this.handleAddRecipeModalHide} container={this} aria-labelledby="contained-modal-title">
-        <Modal.Header closeButton="closeButton">
-          <Modal.Title id="contained-modal-title">
-            Add A Recipe
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form>
-            <FormGroup
-              controlId="formBasicText"
-            >
-              <ControlLabel>Recipe</ControlLabel>
-              <FormControl
-                type="text"
-                value={this.state.addRecipeValue}
-                placeholder="e.g. Lasagna"
-                onChange={this.handleChangeRecipeValue}
-              />
-              <ControlLabel>Ingredients</ControlLabel>
-              <FormControl
-                type="text"
-                value={this.state.addIngredientValue}
-                placeholder="e.g. eggs, flour, tomato sauce, water"
-                onChange={this.handleChangeIngredientValue}
-              />
-            </FormGroup>
-          </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button bsStyle="primary" className='btn-add' onClick={this.handleAddRecipe} >Add Recipe</Button>
-          <Button onClick={this.handleAddRecipeModalHide}>Close</Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  }
-
-
-  renderEditRecipeModal = (e) => {
-    return (
-      <Modal show={this.state.showEditModal} onHide={this.handleEditRecipeModalHide} container={this} aria-labelledby="contained-modal-title">
-        <Modal.Header closeButton="closeButton">
-          <Modal.Title id="contained-modal-title">
-            Edit Recipe
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form>
-            <FormGroup
-              controlId="formBasicText"
-            >
-              <ControlLabel>Recipe</ControlLabel>
-              <FormControl
-                type="text"
-                value={this.state.editRecipeValue}
-                onChange={this.handleChangeEditRecipeValue}
-              />
-              <ControlLabel>Ingredients</ControlLabel>
-              <FormControl
-                type="text"
-                value={this.state.editIngredientValue}
-                onChange={this.handleChangeEditIngredientValue}
-              />
-            </FormGroup>
-          </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button bsStyle='warning' className='btn-edit' onClick={() => this.updateRecipe(this.state.currentEditIndex)}>Save Recipe</Button>
-          <Button onClick={this.handleEditRecipeModalHide}>Close</Button>
-        </Modal.Footer>
-      </Modal>
-    )
-  }
   render() {
     return (<div>
       <PanelGroup accordion="accordion" id="accordion">
@@ -218,8 +147,26 @@ export default class RecipeCard extends Component {
       <Button bsStyle="primary" onClick={() => this.setState({showAddModal: true})}>
         Add Recipe
       </Button>
-      {this.renderAddRecipeModal()}
-      {this.renderEditRecipeModal()}
+      <AddRecipeModal
+        inputRecipe = {this.state.addRecipeValue}
+        handleRecipe= {this.handleChangeRecipeValue}
+        inputIngredient = {this.state.addIngredientValue}
+        handleIngredient = {this.handleChangeIngredientValue}
+        showModal= {this.state.showAddModal}
+        handleAdd = {this.handleAddRecipe}
+        closeModal = {this.handleAddRecipeModalHide}
+      />
+      <EditRecipeModal
+        inputRecipe = {this.state.editRecipeValue}
+        handleRecipe= {this.handleChangeEditRecipeValue}
+        inputIngredient = {this.state.editIngredientValue}
+        handleIngredient = {this.handleChangeEditIngredientValue}
+        showModal = {this.state.showEditModal}
+        handleUpdate = {this.updateRecipe}
+        closeModal = {this.handleEditRecipeModalHide}
+        recipe = {this.state.recipes}
+        thisIndex = {this.state.currentEditIndex}
+      />
     </div>);
   }
 }
